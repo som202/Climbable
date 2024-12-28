@@ -1,0 +1,57 @@
+body {
+    margin: 0px;
+    background-color: ghostwhite;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+}
+body header {
+    border-bottom: 2px solid black;
+    background-color: slateblue;
+}
+header a {
+    color: ghostwhite;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px;
+}
+header a:hover {
+    background-color: darkslateblue;
+}
+header #account {
+    margin: 0px;
+    padding: 0px;
+    float: right;
+}
+#profile {
+    margin: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 2px solid;
+}
+#profile-pic {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+}
+#profile-description {
+    margin-left: 10px;
+    max-width: 40%;
+}
+table {
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Adds space between rows */
+    width: 100%;
+}
+tr {
+    border: 2px solid black; /* Border for the rows */
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}

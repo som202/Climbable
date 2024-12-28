@@ -5,11 +5,10 @@ body {
 }
 body header {
     border-bottom: 2px solid black;
-    /* background-color: rgb(85, 124, 142); */
     background-color: slateblue;
 }
 header a {
-    color: linen;
+    color: ghostwhite;
     text-decoration: none;
     display: inline-block;
     padding: 10px;
