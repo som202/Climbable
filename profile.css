@@ -22,8 +22,7 @@ header #account {
     float: right;
 }
 #profile {
-    margin: 10px;
-    padding-bottom: 10px;
+    padding: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -42,6 +41,22 @@ header #account {
 #profile-description {
     margin-left: 10px;
     max-width: 40%;
+}
+#profile > div:last-child {
+    margin-left: auto;
+}
+.button {
+    border: 1px solid black;
+    border-radius: 5px;
+    color: ghostwhite;
+    background-color: slateblue;
+    padding: 10px 30px;
+    font: inherit;
+    margin: 3px;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: darkslateblue;
 }
 table {
     border-collapse: separate;
