@@ -22,10 +22,12 @@ header #account {
     float: right;
 }
 #profile {
+    background-color: rgb(236, 215, 255);
     padding: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
     border-bottom: 2px solid;
 }
 #profile-pic {
@@ -37,13 +39,17 @@ header #account {
     align-items: center;
     justify-content: center;
     border: 2px solid black;
+    flex-shrink: 0;
 }
 #profile-description {
     margin-left: 10px;
     max-width: 40%;
+    word-wrap: break-word;
 }
 #profile > div:last-child {
     margin-left: auto;
+    display: flex;
+    flex-direction: column;
 }
 .button {
     border: 1px solid black;
@@ -58,13 +64,11 @@ header #account {
 .button:hover {
     background-color: darkslateblue;
 }
-table {
-    border-collapse: separate;
-    border-spacing: 0 10px; /* Adds space between rows */
-    width: 100%;
+#table-container {
+    overflow-x: auto;
 }
-tr {
-    border: 2px solid black; /* Border for the rows */
+table {
+    width: 100%;
 }
 th, td {
     padding: 10px;
