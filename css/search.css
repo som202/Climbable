@@ -45,3 +45,8 @@ header #account {
     text-align: center;
     padding-top: 20px;
 }
+@media print {
+    header, #search-bar, .user-tip {
+        display: none;
+    }
+}
