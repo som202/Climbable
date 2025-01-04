@@ -45,8 +45,14 @@ header #account {
     text-align: center;
     padding-top: 20px;
 }
+#results p:last-child {
+    display: none;
+}
 @media print {
     header, #search-bar, .user-tip {
         display: none;
+    }
+    #results p:last-child {
+        display: block;
     }
 }
