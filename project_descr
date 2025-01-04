@@ -1,0 +1,46 @@
+Projekt: sociální síť pro lezce
+
+Cíl: umožnit lezcům sdílet svůj progres
+
+Uživatelské role:
+
+-Nepřihlášení uživatelé
+-Přihlášení uživatelé:
+    +Běžní přihlášení uživatelé
+    +Správce (admin)
+
+Popis:
+
+Funkce:
+
+-Každý přihlášený uživatel má unikátní username a profil, který je buď otevřený, nebo soukromý.
+-Nově založený profil je otevřený. Lze to změnit v nastavení profilu.
+-Nepřihlášení uživatelé mohou vidět jen otevřené profily.
+-Profil obsahuje následující položky:
+	+Jméno (povinný)
+	+Profilový obrázek
+	+Bio (o sobě) (maximálně 250 znaků)
+-Přihlášení uživatelé mohou uploadovat do profilu své přelezy (1 přelez = 1 příspěvek)
+-Příspěvek o přelezu obsahuje:
+	+Jméno trasy
+	+Obtížnost přelezu (povinný) (lze zadat rozmezí)
+	+Lokace (string)
+	+Video přelezu (je stanovena maximální velikost souboru)
+
+Funkce podle rolí:
+
+-Přihlášené uživatelé mohou:
+	+Uploadovat, editovat, mazat své přelezy
+	+Dívat se na profily ostatních uživatelů (a to i na soukromé)
+	+Změnit své jméno, bio, profilový obrázek
+	+Odhlásit se
+-Nepřihlášené uživatelé mohou:
+	+Dívat se na otevřené profily uživatelů
+	+Přihlásit se
+-Správce (admin) může:
+	+Mazat/editovat příspěvky (přelezy) uživatelů
+	+Mazat profily uživatelů
+	+Mít vlastní profil (nemusí)
+
+Stránky:
+Hlavní stránka, jednotlivé profily, registrační a přihlašovací stránky, stránka pro hledání lezců.

@@ -1,0 +1,30 @@
+body {
+    margin: 0px;
+    background-color: ghostwhite;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+}
+body header {
+    border-bottom: 2px solid black;
+    background-color: slateblue;
+}
+header a {
+    color: ghostwhite;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px;
+}
+header a:hover {
+    background-color: darkslateblue;
+}
+header #account {
+    margin: 0px;
+    padding: 0px;
+    float: right;
+}
+#content {
+    padding: 20px;
+    text-align: center;
+}
+#content span {
+    font-weight: bold;
+}

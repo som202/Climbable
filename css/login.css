@@ -1,0 +1,68 @@
+body {
+    margin: 0px;
+    background-color: ghostwhite;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+}
+body header {
+    border-bottom: 2px solid black;
+    background-color: slateblue;
+}
+header a {
+    color: ghostwhite;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px;
+}
+header a:hover {
+    background-color: darkslateblue;
+}
+#login-container {
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+#login-form {
+    background-color: linen;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 30px;
+}
+.field {
+    padding-bottom: 10px;
+}
+.field input {
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+.field input:focus {
+    outline: none;
+    background-color: rgb(236, 215, 255);
+
+}
+.field input::placeholder {
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+}
+#password-div, #button-div {
+    padding-bottom: 15px;
+}
+button {
+    background-color: slateblue;
+    color: ghostwhite;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+    cursor: pointer;
+}
+button:hover {
+    background-color: darkslateblue;
+}
+#login-form a {
+    color: slateblue;
+}
+#login-form a:active {
+    color: darkslateblue;
+}
