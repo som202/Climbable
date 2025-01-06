@@ -15,18 +15,20 @@
         <a href="search.html">Find climbers</a>
     </header>
     <div id="login-container">
-        <div id="login-form">
+        <form id="login-form">
             <div class="field">
-                <input id="username-field" name="username" placeholder="Username">
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" name="username" placeholder="Username">
             </div>
             <div class="field" id="password-div">
-                <input type="password" id="password-field" name="password" placeholder="Password">
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" placeholder="Password">
             </div>
             <div id="button-div">
                 <button type="submit">Sign in</button>
             </div>
             <a href="signup.html">Click here to sign up</a>
-        </div>
+        </form>
     </div>
 </body>
 </html>
