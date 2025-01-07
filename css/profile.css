@@ -123,7 +123,15 @@ th, td {
     outline: none;
     background-color: rgb(224, 212, 234);
 }
-#post-form .field input::placeholder {
+#post-form .field textarea {
+    border: 2px solid black;
+    border-radius: 5px;
+}
+#post-form .field textarea:focus {
+    outline: none;
+    background-color: rgb(224, 212, 234);
+}
+#post-form .field input::placeholder, #post-form .field textarea {
     font-family: "Lato", Helvetica, Arial, sans-serif;
 }
 #post-form .field {
