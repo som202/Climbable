@@ -24,7 +24,7 @@ Funkce:
 -Příspěvek o přelezu obsahuje:
 	+Jméno trasy
 	+Obtížnost přelezu (povinný) (lze zadat rozmezí)
-	+Lokace (string)
+	+Lokace (string) (povinný)
 	+Video přelezu (je stanovena maximální velikost souboru)
 
 Funkce podle rolí:

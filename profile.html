@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/profile.css">
+    <script src="js/profile.js" defer></script>
     <title>Profile</title>
 </head>
 <body>
@@ -24,12 +25,12 @@
         <div id="profile-description">
             <strong>Username</strong><br><span>epicgamer1337</span><br>
             <strong>Name</strong><br><span>John Doe</span><br>
-            <strong>About</strong><br><span>I love gaming and climbing rocks!</span>
+            <strong>About</strong><br><span>Dogs are the best! Test test test</span>
         </div>
         <div id="action-buttons">
-            <button type="button" class="button">Post</button>
-            <button type="button" class="button">Edit posts</button>
-            <button type="button" class="button">Settings</button>
+            <button type="button" class="action-button">Post</button>
+            <button type="button" class="action-button">Edit posts</button>
+            <button type="button" class="action-button">Settings</button>
         </div>
     </div>
     <div id="table-container">
@@ -60,6 +61,30 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div id="overlay">
+        <form id="post-form">
+            <button id="btn-close">&times;</button>
+            <div class="field">
+                <label for="grade">Grade:</label><br>
+                <input type="text" id="grade" name="grade" placeholder="Give climb a grade" required>
+            </div>
+            <div class="field">
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name" placeholder="Name of the climb">
+            </div>
+            <div class="field">
+                <label for="location">Location:</label><br>
+                <input type="text" id="location" name="location" placeholder="Where did you climb?" required>
+            </div>
+            <div class="field">
+                <label for="video">Video:</label><br>
+                <input type="file" id="video" name="video" required="false">
+            </div>
+            <div id="submit-div">
+                <button type="submit">Create post</button>
+            </div>
+        </form>
     </div>
 </body>
 </html>
