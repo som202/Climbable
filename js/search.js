@@ -6,7 +6,6 @@ window.onload = function() {
 
 searchField.addEventListener("focus", () => {
     document.querySelector(".user-tip").style.display = "none";
-    console.log("User tip hidden");
 }, {once: true});
 
 let ol = document.querySelector("#results ol");
@@ -31,11 +30,14 @@ searchField.addEventListener("input", (e) => {
             if (data.length === 0) {
                 ol.innerHTML = "<li>No results found</li>";
             }
-            data.forEach(username => {
-                let li = document.createElement("li");
-                li.innerHTML = `<a href="${username}">${username}</a>`;
-                ol.appendChild(li);
-            });
+            else {
+                ol.innerHTML = "<li>Found users:</li>";
+                data.forEach(username => {
+                    let li = document.createElement("li");
+                    li.innerHTML = `<a href="${username}">${username}</a>`;
+                    ol.appendChild(li);
+                });
+            }
         })
         .catch(err => console.error("Error: ", err));
     }
