@@ -45,14 +45,25 @@ header #account {
     text-align: center;
     padding-top: 20px;
 }
-#results p:last-child {
+#results ol {
+    padding-left: 0;
+    list-style-type: none;
+}
+#results ol li a {
+    color: slateblue;
+    text-decoration: none;
+}
+#results ol li a:active {
+    color: darkslateblue;
+}
+.print-info {
     display: none;
 }
 @media print {
     header, #search-bar, .user-tip {
         display: none;
     }
-    #results p:last-child {
+    .print-info {
         display: block;
     }
 }

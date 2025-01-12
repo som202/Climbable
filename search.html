@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/search.css">
+    <script src="js/search.js" defer></script>
     <title>User search</title>
 </head>
 <body>
@@ -20,13 +21,13 @@
     </header>
     <div id="search-container">
         <div id="search-bar">
-            <form>
-                <input type="text" id="search-field" name="name" placeholder="Search for climbers">
-            </form>
+            <input type="text" id="search-field" name="name" placeholder="Search for climbers" autocomplete="off">
         </div>
         <div id="results">
             <p class="user-tip">Use the search bar above to look for climbers!</p>
-            <p>The found users are displayed here</p>
+            <p class="print-info">The found users are displayed here</p>
+            <ol>
+            </ol>
         </div>
     </div>
 </body>
