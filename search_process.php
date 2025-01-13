@@ -2,15 +2,7 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $input = file_get_contents("php://input");
     if (ctype_alnum($input)) {
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "testdb";
-
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        if ($conn->connect_error) {
-            die("Connection failed: ".$conn->connect_error);
-        }
+        require('db_connect.php');
         $stmt = $conn->prepare("SELECT username FROM users WHERE username LIKE ? AND visible = 1 ORDER BY username");
         $exp = "%$input%";
         $stmt->bind_param("s", $exp);
@@ -30,6 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 else {
-    die("Not post requests aren't served on this page");
+    die("Only post requests are served on this page");
 }
 ?>

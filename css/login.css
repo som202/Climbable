@@ -65,3 +65,10 @@ button {
 button:hover {
     background-color: darkslateblue;
 }
+.tip {
+    text-align: center;
+    margin: 20px;
+}
+.tip span {
+    font-weight: bold;
+}

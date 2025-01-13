@@ -6,7 +6,7 @@ function checkPasswordMatch() {
         errDiv.innerHTML = "";
         return true;
     }
-    errDiv.innerHTML = "<span>Passwords don't match!</span>";
+    errDiv.innerHTML = "<span>Passwords didn't match!</span>";
     return false;
 }
 
