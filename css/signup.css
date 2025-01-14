@@ -68,3 +68,7 @@ button {
 button:hover {
     background-color: darkslateblue;
 }
+#signup-form .field .required {
+    color: red;
+    position: absolute;
+}

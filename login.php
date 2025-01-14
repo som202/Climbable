@@ -17,7 +17,7 @@ session_start();
         <a href="index.html">Climbable</a>
         <a href="search.html">Find climbers</a>
         <div id="account">
-            <a href="signup.html">Sign up</a>
+            <a href="signup.php">Sign up</a>
         </div>
     </header>
     <div id="login-container">

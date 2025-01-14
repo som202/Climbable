@@ -36,7 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             exit();
         }
         else {
-            die("Specified username already exists");
+            $_SESSION["user_exists"] = "Specified username already exists";
+            $_SESSION["entered_username"] = $username;
+            header("Location: signup.php");
+            exit();
         }
     }
     else {
