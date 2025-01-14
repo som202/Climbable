@@ -11,18 +11,19 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/signup.css">
     <script src="js/signup.js" defer></script>
+    <script src="js/mark_fields.js" defer></script>
     <title>Sign up</title>
 </head>
 <body>
     <header>
-        <a href="index.html">Climbable</a>
-        <a href="search.html">Find climbers</a>
+        <a href="index.php">Climbable</a>
+        <a href="search.php">Find climbers</a>
         <div id="account">
             <a href="login.php">Log in</a>
         </div>
     </header>
     <div id="signup-container">
-        <form id="signup-form" action="signup_process.php" method="post">
+        <form id="signup-form" method="post" action="signup_process.php">
             <div id="form-error">
             <?php
             if (isset($_SESSION["user_exists"])) {

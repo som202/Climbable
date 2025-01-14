@@ -25,7 +25,8 @@ header #account {
     padding: 20px;
     text-align: center;
 }
-#user-tip {
+.tip {
+    margin: 10px;
     font-weight: bold;
 }
 @media print {

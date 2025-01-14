@@ -72,3 +72,10 @@ button:hover {
 .tip span {
     font-weight: bold;
 }
+#login-form .field .required {
+    position: absolute;
+    color: red;
+}
+#form-error span {
+    color: red;
+}

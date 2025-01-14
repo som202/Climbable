@@ -10,12 +10,14 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
+    <script src="js/login.js" defer></script>
+    <script src="js/mark_fields.js" defer></script>
     <title>Log in</title>
 </head>
 <body>
     <header>
-        <a href="index.html">Climbable</a>
-        <a href="search.html">Find climbers</a>
+        <a href="index.php">Climbable</a>
+        <a href="search.php">Find climbers</a>
         <div id="account">
             <a href="signup.php">Sign up</a>
         </div>
@@ -25,15 +27,31 @@ session_start();
         if (isset($_SESSION["signup_success"])) {
             echo "<div class='tip'><span>".$_SESSION["signup_success"]."</span></div>";
             unset($_SESSION["signup_success"]);
+        } 
+        else if (isset($_SESSION["login_first_tip"])) {
+            echo "<div class='tip'><span>".$_SESSION["login_first_tip"]."</span></div>";
+            unset($_SESSION["login_first_tip"]);
         }
         ?>
-        <form id="login-form">
+        <form id="login-form" method="post" action="login_process.php">
+            <div id="form-error">
+            <?php
+            if (isset($_SESSION["user_not_registered"])) {
+                echo "<span>".$_SESSION["user_not_registered"]."</span>";
+                unset($_SESSION["user_not_registered"]);
+            }
+            else if (isset($_SESSION["wrong_password"])) {
+                echo "<span>".$_SESSION["wrong_password"]."</span>";
+                unset($_SESSION["wrong_password"]);
+            }
+            ?>
+            </div>
             <div class="field">
-                <label for="username">Username:</label><br>
-                <input type="text" id="username" name="username" placeholder="Username" required minlength="3" maxlength="35" pattern="[A-Za-z0-9]+" title="Username can only contain letters and numbers">
+                <label for="username">Username</label><span class="required">*</span><br>
+                <input type="text" id="username" name="username" placeholder="Username" autocomplete="off" required minlength="3" maxlength="35" pattern="[A-Za-z0-9]+" title="Username can only contain letters and numbers" value="<?php echo isset($_SESSION["entered_username"]) ? htmlspecialchars($_SESSION["entered_username"]) : ''; unset($_SESSION["entered_username"]);?>">
             </div>
             <div class="field" id="password-div">
-                <label for="password">Password:</label><br>
+                <label for="password">Password</label><span class="required">*</span><br>
                 <input type="password" id="password" name="password" placeholder="Password" required minlength="8" maxlength="64" pattern="[A-Za-z0-9~!@#$%^&*]+" title="Password can only contain letters, numbers and following characters: ~!@#$%^&*">
             </div>
             <div id="button-div">

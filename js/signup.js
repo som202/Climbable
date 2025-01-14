@@ -15,17 +15,3 @@ document.querySelector("#signup-form").addEventListener("submit", (e) => {
         e.preventDefault();
     }
 });
-
-let inputs = document.querySelectorAll(".field input");
-inputs.forEach(i => {
-    i.addEventListener("input", (e) => {
-        console.log(document.querySelector(`label[for='${e.target.id}']`).nextElementSibling);
-        let star = document.querySelector(`label[for='${e.target.id}']`).nextElementSibling;
-        if (e.target.value !== "") {
-            star.style.display = 'none';
-        }
-        else {
-            star.style.display = 'inline';
-        }
-    });
-});

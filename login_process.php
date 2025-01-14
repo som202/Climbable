@@ -1,0 +1,71 @@
+<?php
+session_start();
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    if (ctype_alnum($username) && strlen($username) >= 3 && strlen($username) <= 35 
+        && preg_match("/^[A-Za-z0-9~!@#$%^&*]+$/",$password) && strlen($password) >= 8 && strlen($password) <= 64) {
+
+        require('db_connect.php');
+        $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        if(!$stmt->execute()) {
+            $stmt->close();
+            $conn->close();
+            die("Database error: ".$stmt->error);
+        }
+        $res = $stmt->get_result();
+        if ($res->num_rows === 1) {
+            $row = $res->fetch_assoc();
+            $user_id = $row["id"];
+            $stmt->close();
+            $stmt2 = $conn->prepare("SELECT hashed_value FROM passwords WHERE user_id = ?");
+            $stmt2->bind_param("s", $user_id);
+            if(!$stmt2->execute()) {
+                $stmt2->close();
+                $conn->close();
+                die("Database error: ".$stmt2->error);
+            }
+            $res2 = $stmt2->get_result();
+            if ($res2->num_rows === 1) {
+                $row2 = $res2->fetch_assoc();
+                $user_pw_hash = $row2["hashed_value"];
+                $stmt2->close();
+                $conn->close();
+                if (password_verify($password,$user_pw_hash)) {
+                    $_SESSION["username"] = $username;
+                    header("Location: profile.php");
+                    exit();
+                }
+                else {
+                    $_SESSION["wrong_password"] = "Wrong password";
+                    $_SESSION["entered_username"] = $username;
+                    header("Location: login.php");
+                    exit();
+                }
+            }
+            else {
+                // echo $res2->num_rows."\n";
+                // echo gettype($res2->num_rows)."\n";
+                $stmt2->close();
+                $conn->close();
+                die("User is found, but their password is missing from db");
+            }
+        }
+        else {
+            $stmt->close();
+            $conn->close();
+            $_SESSION["user_not_registered"] = "This username isn't registered";
+            $_SESSION["entered_username"] = $username;
+            header("Location: login.php");
+            exit();
+        }
+    }
+    else {
+        die("Data doesn't match the requested format");
+    }
+}
+else {
+    die("This page only supports post requests");
+}
+?>
