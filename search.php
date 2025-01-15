@@ -18,7 +18,7 @@ session_start();
         <a href="index.php">Climbable</a>
         <div id="account">
             <?php
-            if (isset($_SESSION["username"]) && isset($_SESSION["user_id"])) {
+            if (isset($_SESSION["user_id"])) {
                 echo "<a href='profile.php?id=".$_SESSION["user_id"]."'>Profile</a>";
             }
             else {

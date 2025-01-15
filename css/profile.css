@@ -69,10 +69,17 @@ header #account {
 }
 table {
     width: 100%;
+    border-collapse: collapse;
 }
 th, td {
     padding: 10px;
     text-align: left;
+}
+thead tr {
+    background-image: linear-gradient(to top, rgb(166, 166, 166), white);
+}
+tbody tr:nth-child(even) {
+    background-color: rgb(227, 227, 235);
 }
 #post-form {
     margin-top: 3em;

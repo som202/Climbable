@@ -18,7 +18,7 @@ session_start();
         <a href="search.php">Find climbers</a>
         <div id="account">
             <?php
-            if (isset($_SESSION["username"]) && isset($_SESSION["user_id"])) {
+            if (isset($_SESSION["user_id"])) {
                 echo "<a href='profile.php?id=".$_SESSION["user_id"]."'>Profile</a>";
             }
             else {
@@ -42,7 +42,7 @@ session_start();
             </p>
         </div>
         <?php 
-        if (!isset($_SESSION["username"])) {
+        if (!isset($_SESSION["user_id"])) {
             echo <<<html
             <div class="tip">
             <strong>You can find other climbers using "Find climbers" section</strong>

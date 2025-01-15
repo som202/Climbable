@@ -9,9 +9,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 else {
     die("This page only supports get requests");
 }
-require('uid_to_username.php');
+require('uid_get_data.php');
 // page will die if the user with specified user_id doesn't exist
-$profile_username = uid_to_username($_GET["id"]);
+$profile_username = uid_get_data($_GET["id"],"username");
+$name = uid_get_data($_GET["id"],"name");
+if (is_null($name)) {
+    $name = "-";
+}
+$about = uid_get_data($_GET["id"],"about");
+if (is_null($about)) {
+    $about = "-";
+}
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,8 +40,13 @@ $profile_username = uid_to_username($_GET["id"]);
         <a href="search.php">Find climbers</a>
         <div id="account">
             <?php
-            if (isset($_SESSION["username"])) {
-                echo "<a href='logout.php'>Log out</a>";
+            if (isset($_SESSION["user_id"])) {
+                if ($_GET["id"] == $_SESSION["user_id"]) {
+                    echo "<a href='logout.php'>Log out</a>";
+                }
+                else {
+                    echo "<a href='profile.php?id=".$_SESSION["user_id"]."'>Profile</a>";
+                }
             }
             else {
                 echo <<<html
@@ -50,11 +64,11 @@ $profile_username = uid_to_username($_GET["id"]);
         </div>
         <div id="profile-description">
             <strong>Username</strong><br><span><?php echo htmlspecialchars($profile_username);?></span><br>
-            <strong>Name</strong><br><span>John Doe</span><br>
-            <strong>About</strong><br><span>I love gaming and climbing plastic rocks!</span>
+            <strong>Name</strong><br><span><?php echo htmlspecialchars($name);?></span><br>
+            <strong>About</strong><br><span><?php echo htmlspecialchars($about);?></span>
         </div>
         <?php
-        if ($_SESSION["username"] === $profile_username) {
+        if ($_SESSION["user_id"] == $_GET["id"]) {
             echo <<<html
             <div id="action-buttons">
                 <button type="button" class="action-button">Post</button>
@@ -94,33 +108,40 @@ $profile_username = uid_to_username($_GET["id"]);
             </tbody>
         </table>
     </div>
-    <div id="overlay">
-        <form id="post-form">
-            <button id="btn-close">&times;</button>
-            <div class="field">
-                <label for="grade">Grade:</label><br>
-                <input type="text" id="grade" name="grade" placeholder="Give climb a grade" required>
-            </div>
-            <div class="field">
-                <label for="name">Name:</label><br>
-                <input type="text" id="name" name="name" placeholder="Name of the climb">
-            </div>
-            <div class="field">
-                <label for="location">Location:</label><br>
-                <input type="text" id="location" name="location" placeholder="Where did you climb" required>
-            </div>
-            <div class="field">
-                <label for="description">Description:</label><br>
-                <textarea id="description" name="description" placeholder="Tell people more about the climb" rows="3" cols="30"></textarea>
-            </div>
-            <div class="field">
-                <label for="video">Video:</label><br>
-                <input type="file" id="video" name="video">
-            </div>
-            <div id="submit-div">
-                <button type="submit">Create post</button>
-            </div>
-        </form>
-    </div>
+    <?php
+    if ($_SESSION["user_id"] == $_GET["id"]) {
+        echo <<<html
+        <div id="overlay">
+            <form id="post-form">
+                <button id="btn-close">&times;</button>
+                <div class="field">
+                    <label for="grade">Grade:</label><br>
+                    <input type="text" id="grade" name="grade" placeholder="Give climb a grade" required>
+                </div>
+                <div class="field">
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name" placeholder="Name of the climb">
+                </div>
+                <div class="field">
+                    <label for="location">Location:</label><br>
+                    <input type="text" id="location" name="location" placeholder="Where did you climb" required>
+                </div>
+                <div class="field">
+                    <label for="description">Description:</label><br>
+                    <textarea id="description" name="description" placeholder="Tell people more about the climb" rows="3" cols="30"></textarea>
+                </div>
+                <div class="field">
+                    <label for="video">Video:</label><br>
+                    <input type="file" id="video" name="video">
+                </div>
+                <div id="submit-div">
+                    <button type="submit">Create post</button>
+                </div>
+            </form>
+        </div>
+        html;
+    }
+    ?>
+    
 </body>
 </html>
