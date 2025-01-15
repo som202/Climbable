@@ -1,10 +1,17 @@
 <?php
 session_start();
-if (!isset($_SESSION["username"])) {
-    $_SESSION["login_first_tip"] = "Please log in to access your profile";
-    header("Location: login.php");
-    exit();
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if (!isset($_GET["id"])) {
+        die("Get request is missing parameters that specify the user");
+    }
 }
+else {
+    die("This page only supports get requests");
+}
+require('uid_to_username.php');
+// page will die if the user with specified user_id doesn't exist
+$profile_username = uid_to_username($_GET["id"]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,14 +23,25 @@ if (!isset($_SESSION["username"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/profile.css">
     <script src="js/profile.js" defer></script>
-    <title>Profile</title>
+    <title><?php echo htmlspecialchars($profile_username)."'s profile"?></title>
 </head>
 <body>
     <header>
         <a href="index.php">Climbable</a>
         <a href="search.php">Find climbers</a>
         <div id="account">
-            <a href="logout.php">Log out</a>
+            <?php
+            if (isset($_SESSION["username"])) {
+                echo "<a href='logout.php'>Log out</a>";
+            }
+            else {
+                echo <<<html
+                <a href="login.php">Log in</a>
+                <a href="signup.php">Sign up</a>
+                html;
+            }
+            
+            ?>
         </div>
     </header>
     <div id="profile">
@@ -31,15 +49,21 @@ if (!isset($_SESSION["username"])) {
             <img src="icons/user.png" alt="profile picture">
         </div>
         <div id="profile-description">
-            <strong>Username</strong><br><span><?php echo htmlspecialchars($_SESSION["username"]); ?></span><br>
+            <strong>Username</strong><br><span><?php echo htmlspecialchars($profile_username);?></span><br>
             <strong>Name</strong><br><span>John Doe</span><br>
             <strong>About</strong><br><span>I love gaming and climbing plastic rocks!</span>
         </div>
-        <div id="action-buttons">
-            <button type="button" class="action-button">Post</button>
-            <button type="button" class="action-button">Edit posts</button>
-            <button type="button" class="action-button">Settings</button>
-        </div>
+        <?php
+        if ($_SESSION["username"] === $profile_username) {
+            echo <<<html
+            <div id="action-buttons">
+                <button type="button" class="action-button">Post</button>
+                <button type="button" class="action-button">Edit posts</button>
+                <button type="button" class="action-button">Settings</button>
+            </div>
+            html;
+        }
+        ?>
     </div>
     <div id="table-container">
         <table>

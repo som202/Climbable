@@ -27,14 +27,14 @@ searchField.addEventListener("input", (e) => {
         .then(response => response.json())
         .then(data => {
             ol.innerHTML = "";
-            if (data.length === 0) {
+            if (Object.keys(data).length === 0) {
                 ol.innerHTML = "<li>No results found</li>";
             }
             else {
                 ol.innerHTML = "<li>Found users:</li>";
-                data.forEach(username => {
+                Object.keys(data).forEach(key => {
                     let li = document.createElement("li");
-                    li.innerHTML = `<a href="${username}">${username}</a>`;
+                    li.innerHTML = `<a href="profile.php?id=${parseInt(key)}">${data[key]}</a>`;
                     ol.appendChild(li);
                 });
             }

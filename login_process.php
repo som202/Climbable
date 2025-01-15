@@ -34,7 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $conn->close();
                 if (password_verify($password,$user_pw_hash)) {
                     $_SESSION["username"] = $username;
-                    header("Location: profile.php");
+                    $_SESSION["user_id"] = $user_id;
+                    header("Location: profile.php?id=".urlencode($user_id));
                     exit();
                 }
                 else {

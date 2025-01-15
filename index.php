@@ -18,12 +18,12 @@ session_start();
         <a href="search.php">Find climbers</a>
         <div id="account">
             <?php
-            if (isset($_SESSION["username"])) {
-                echo "<a href='profile.php'>Profile</a>";
+            if (isset($_SESSION["username"]) && isset($_SESSION["user_id"])) {
+                echo "<a href='profile.php?id=".$_SESSION["user_id"]."'>Profile</a>";
             }
             else {
                 echo <<<html
-                <a href="login.php">Login</a>
+                <a href="login.php">Log in</a>
                 <a href="signup.php">Sign up</a>
                 html;
             }
