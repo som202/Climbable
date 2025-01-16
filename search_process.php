@@ -1,9 +1,15 @@
 <?php
+session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $input = file_get_contents("php://input");
     if (ctype_alnum($input)) {
         require('db_connect.php');
-        $stmt = $conn->prepare("SELECT id, username FROM users WHERE username LIKE ? AND visible = 1 ORDER BY username");
+        if (isset($_SESSION["user_id"])) {
+            $stmt = $conn->prepare("SELECT id, username FROM users WHERE username LIKE ? ORDER BY username");
+        }
+        else {
+            $stmt = $conn->prepare("SELECT id, username FROM users WHERE username LIKE ? AND is_public = 1 ORDER BY username");
+        }
         $exp = "%$input%";
         $stmt->bind_param("s", $exp);
         if (!$stmt->execute()) {
@@ -11,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $res = $stmt->get_result();
         $found_users = array();
-        while($row=$res->fetch_assoc()) {
+        while($row = $res->fetch_assoc()) {
             $found_users[$row["id"]] = $row["username"];
         }
         header('Content-Type: application/json');

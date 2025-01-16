@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 else {
     die("This page only supports get requests");
 }
+
 require('uid_get_data.php');
 // page will die if the user with specified user_id doesn't exist
 $profile_username = uid_get_data($_GET["id"],"username");
@@ -20,7 +21,6 @@ $about = uid_get_data($_GET["id"],"about");
 if (is_null($about)) {
     $about = "-";
 }
-$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,33 +81,52 @@ $conn->close();
         ?>
     </div>
     <div id="table-container">
+    <?php
+    $stmt = $conn->prepare("SELECT grade, name, location, description, video_file FROM posts WHERE user_id = ?");
+    $stmt->bind_param("i", $_GET["id"]);
+    if (!$stmt->execute()) {
+        $stmt->close();
+        $conn->close();
+        die("Database error: ".$stmt->error);
+    }
+    $res = $stmt->get_result();
+    if ($res->num_rows > 0) {
+        echo <<<html
         <table>
-            <thead>
-                <tr>
-                    <th>Grade</th>
-                    <th>Name</th>
-                    <th>Location</th>
-                    <th>Video</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>6b+</td>
-                    <td>-</td>
-                    <td>Smichoff</td>
-                    <td>-</td>
-                    <td>This climb hurt my shoulder :(</td>
-                </tr>
-                <tr>
-                    <td>7a</td>
-                    <td>Sneaky route</td>
-                    <td>Trinactka wall</td>
-                    <td>-</td>
-                    <td>A very cool climb with lots of dynos</td>
-                </tr>
-            </tbody>
+        <thead>
+            <tr>
+                <th>Grade</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Video</th>
+            </tr>
+        </thead>
+        <tbody>
+        html;
+        while($row = $res->fetch_assoc()) {
+            echo "<tr><td>".htmlspecialchars($row["grade"])."</td>";
+            echo "<td>".htmlspecialchars($row["name"] === "" ? "-" : "")."</td>";
+            echo "<td>".htmlspecialchars($row["location"])."</td>";
+            echo "<td>".htmlspecialchars($row["description"] === "" ? "-" : "")."</td>";
+            if ($row["video_file"] === NULL) {
+                echo "<td>-</td></tr>";
+            }
+            else {
+                echo "<td><a href='".htmlspecialchars($row["video_file"])."'>".htmlspecialchars(basename($row["video_file"]))."</a>"."</td></tr>";
+            }
+        }
+        echo <<<html
+        </tbody>
         </table>
+        html;
+    }
+    else {
+        echo "<span>User has no posts yet</span>";
+    }
+    $stmt->close();
+    $conn->close();
+    ?>
     </div>
     <?php
     if ($_SESSION["user_id"] == $_GET["id"]) {

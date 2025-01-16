@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die("Missing post parameters");
     }
 
-    //validate text input and insert it into the database
+    //validate input and insert it into the database
     if ($_POST["grade"] !== "" && strlen($_POST["grade"]) <= 15 &&
     strlen($_POST["name"]) <= 60 && $_POST["location"] !== "" &&
     strlen($_POST["location"]) <= 60 && strlen($_POST["description"]) <= 256) {
@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         //if a video file was attached, validate it, upload it to the server and send to db 
 
         require('post_data_insert.php');
+        
         if ($_FILES["video"]["name"] !== "") {
             if ($_FILES["video"]["error"] !== 0) {
                 die("There was en error uploading your file. Error code: ".$_FILES["video"]["error"]);
@@ -42,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 die("Your file couldn't be moved to according server directory");
             }
         }
-        insert_post_data($_SESSION["user_id"],$_POST["grade"],$_POST["name"],$_POST["location"],$_POST["description"],basename($target_file));
+        insert_post_data($_SESSION["user_id"],$_POST["grade"],$_POST["name"],$_POST["location"],$_POST["description"],$target_file);
         header("Location: profile.php?id=".urlencode($_SESSION["user_id"]));
         exit();
     }
