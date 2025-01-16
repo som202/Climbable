@@ -1,6 +1,9 @@
 <?php
 session_start();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (!isset($_POST["username"]) || !isset($_POST["password"])) {
+        die("Missing post parameters");
+    }
     $username = $_POST["username"];
     $password = $_POST["password"];
     if (ctype_alnum($username) && strlen($username) >= 3 && strlen($username) <= 35 
@@ -45,8 +48,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 }
             }
             else {
-                // echo $res2->num_rows."\n";
-                // echo gettype($res2->num_rows)."\n";
                 $stmt2->close();
                 $conn->close();
                 die("User is found, but their password is missing from db");

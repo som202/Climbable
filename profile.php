@@ -32,6 +32,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/profile.css">
     <script src="js/profile.js" defer></script>
+    <script src="js/mark_fields.js" defer></script>
     <title><?php echo htmlspecialchars($profile_username)."'s profile"?></title>
 </head>
 <body>
@@ -71,7 +72,7 @@ $conn->close();
         if ($_SESSION["user_id"] == $_GET["id"]) {
             echo <<<html
             <div id="action-buttons">
-                <button type="button" class="action-button">Post</button>
+                <button type="button" class="action-button">Post climb</button>
                 <button type="button" class="action-button">Edit posts</button>
                 <button type="button" class="action-button">Settings</button>
             </div>
@@ -112,27 +113,29 @@ $conn->close();
     if ($_SESSION["user_id"] == $_GET["id"]) {
         echo <<<html
         <div id="overlay">
-            <form id="post-form">
+            <form id="post-form" method="post" enctype="multipart/form-data" action="post_process.php">
                 <button id="btn-close">&times;</button>
+                <div id="form-error">
+                </div>
                 <div class="field">
-                    <label for="grade">Grade:</label><br>
-                    <input type="text" id="grade" name="grade" placeholder="Give climb a grade" required>
+                    <label for="grade">Grade:</label><span class="required">*</span><br>
+                    <input type="text" id="grade" name="grade" placeholder="Give climb a grade" required autocomplete="off" maxlength="15">
                 </div>
                 <div class="field">
                     <label for="name">Name:</label><br>
-                    <input type="text" id="name" name="name" placeholder="Name of the climb">
+                    <input type="text" id="name" name="name" placeholder="Name of the climb" autocomplete="off" maxlength="60">
                 </div>
                 <div class="field">
-                    <label for="location">Location:</label><br>
-                    <input type="text" id="location" name="location" placeholder="Where did you climb" required>
+                    <label for="location">Location:</label><span class="required">*</span><br>
+                    <input type="text" id="location" name="location" placeholder="Where did you climb" required autocomplete="off" maxlength="60">
                 </div>
                 <div class="field">
                     <label for="description">Description:</label><br>
-                    <textarea id="description" name="description" placeholder="Tell people more about the climb" rows="3" cols="30"></textarea>
+                    <textarea id="description" name="description" placeholder="Tell people more about the climb" rows="3" cols="30" maxlength="256"></textarea>
                 </div>
                 <div class="field">
                     <label for="video">Video:</label><br>
-                    <input type="file" id="video" name="video">
+                    <input type="file" id="video" name="video" accept="video/*">
                 </div>
                 <div id="submit-div">
                     <button type="submit">Create post</button>

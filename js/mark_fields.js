@@ -1,4 +1,4 @@
-let inputs = document.querySelectorAll(".field input");
+let inputs = document.querySelectorAll(".field input:required");
 inputs.forEach(i => {
     i.addEventListener("input", (e) => {
         let star = document.querySelector(`label[for='${e.target.id}']`).nextElementSibling;

@@ -169,6 +169,13 @@ tbody tr:nth-child(even) {
     height: 100%;
     background: rgba(0,0,0,0.6);
 }
+#post-form .field .required {
+    color: red;
+    position: absolute;
+}
+#form-error span {
+    color: red;
+}
 @media print {
     header, .button {
         display: none;

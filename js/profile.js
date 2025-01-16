@@ -15,3 +15,21 @@ modal.addEventListener("click", (e) => {
         closeModal();
     }
 });
+
+let errDiv = document.querySelector("#form-error");
+document.querySelector("#post-form").addEventListener("submit", (e) => {
+    let fileInput = document.querySelector("#video");
+    const maxSize = 20971520; //20 MB
+    
+    if (fileInput.files[0].size > maxSize) {
+      errDiv.innerHTML = "<span>File is too large. Maximum allowed size is 20 MB</span>";
+      e.preventDefault();
+    }
+});
+document.querySelector("#video").addEventListener("change", (e) => {
+    const maxSize = 20971520; //20 MB
+    
+    if (e.target.files[0].size <= maxSize) {
+      errDiv.innerHTML = "";
+    }
+});
