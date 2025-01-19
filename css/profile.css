@@ -176,6 +176,32 @@ tbody tr:nth-child(even) {
 #form-error span {
     color: red;
 }
+#table-container .message {
+    margin: 2em;
+    font-weight: bold;
+    text-align: center;
+}
+#page-buttons {
+    border-top: 2px solid black;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 10px;
+}
+#page-buttons a {
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 15px;
+    background-color: slateblue;
+    color: ghostwhite;
+    padding: 5px;
+}
+#page-buttons a:active {
+    background-color: darkslateblue;
+}
+#page-buttons #cur-page-button {
+    background-color: darkslateblue;
+}
 @media print {
     header, .button {
         display: none;

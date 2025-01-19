@@ -4,8 +4,9 @@ require('db_connect.php');
 function insert_post_data($user_id,$grade,$name,$location,$description,$video_file) {
 
     global $conn;
-    $stmt = $conn->prepare("INSERT INTO posts (user_id,grade,name,location,description,video_file) VALUES (?,?,?,?,?,?)");
-    $stmt->bind_param("isssss",$user_id,$grade,$name,$location,$description,$video_file);
+    $stmt = $conn->prepare("INSERT INTO posts (user_id,grade,name,location,description,video_file,post_date) VALUES (?,?,?,?,?,?,?)");
+    $time = date("Y-m-d H:i:s");
+    $stmt->bind_param("issssss",$user_id,$grade,$name,$location,$description,$video_file,$time);
     $t = func_get_args();
     if(!$stmt->execute()) {
         $stmt->close();

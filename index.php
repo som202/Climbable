@@ -38,7 +38,7 @@ session_start();
         <div>
             <h1> How does this work?</h1>
             <p>
-                Climbers can share their progress on their profile. For each ascent a climber will publish one post. <br><br>
+                Climbers can share their progress on their profile. For each ascent a climber can publish one post.<br><br>
             </p>
         </div>
         <?php 

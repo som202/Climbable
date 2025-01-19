@@ -82,15 +82,34 @@ if (is_null($about)) {
     </div>
     <div id="table-container">
     <?php
-    $stmt = $conn->prepare("SELECT grade, name, location, description, video_file FROM posts WHERE user_id = ?");
+    $page = isset($_GET["page"]) && intval($_GET["page"]) > 0 ? intval($_GET["page"]) : 1;
+    //get the total number of pages
+    $stmt = $conn->prepare("SELECT COUNT(*) AS total_posts FROM posts WHERE user_id = ?");
     $stmt->bind_param("i", $_GET["id"]);
-    if (!$stmt->execute()) {
+    if (!$stmt->execute()) { 
         $stmt->close();
         $conn->close();
         die("Database error: ".$stmt->error);
     }
     $res = $stmt->get_result();
-    if ($res->num_rows > 0) {
+    $row = $res->fetch_assoc();
+    $total_posts = $row["total_posts"];
+    $stmt->close();
+    
+    if ($total_posts > 0) {
+        $total_pages = ceil($total_posts/10);
+        if ($page > $total_pages) {
+            die("This page doesn't exist");
+        }
+        $offset = ($page-1)*10;
+        $stmt2 = $conn->prepare("SELECT grade, name, location, description, video_file, post_date FROM posts WHERE user_id = ? ORDER BY id DESC LIMIT 10 OFFSET ?");
+        $stmt2->bind_param("ii", $_GET["id"], $offset);
+        if (!$stmt2->execute()) {
+            $stmt2->close();
+            $conn->close();
+            die("Database error: ".$stmt2->error);
+        }
+        $res2 = $stmt2->get_result();
         echo <<<html
         <table>
         <thead>
@@ -100,32 +119,47 @@ if (is_null($about)) {
                 <th>Location</th>
                 <th>Description</th>
                 <th>Video</th>
+                <th>Published at</th>
             </tr>
         </thead>
         <tbody>
         html;
-        while($row = $res->fetch_assoc()) {
-            echo "<tr><td>".htmlspecialchars($row["grade"])."</td>";
-            echo "<td>".htmlspecialchars($row["name"] === "" ? "-" : "")."</td>";
-            echo "<td>".htmlspecialchars($row["location"])."</td>";
-            echo "<td>".htmlspecialchars($row["description"] === "" ? "-" : "")."</td>";
-            if ($row["video_file"] === NULL) {
-                echo "<td>-</td></tr>";
+        while($row2 = $res2->fetch_assoc()) {
+            echo "<tr><td>".htmlspecialchars($row2["grade"])."</td>";
+            echo "<td>".htmlspecialchars($row2["name"] === "" ? "-" : $row2["name"])."</td>";
+            echo "<td>".htmlspecialchars($row2["location"])."</td>";
+            echo "<td>".htmlspecialchars($row2["description"] === "" ? "-" : $row2["description"])."</td>";
+            if ($row2["video_file"] === NULL) {
+                echo "<td>-</td>";
             }
             else {
-                echo "<td><a href='".htmlspecialchars($row["video_file"])."'>".htmlspecialchars(basename($row["video_file"]))."</a>"."</td></tr>";
+                echo "<td><a href='".$row2["video_file"]."'>".basename($row2["video_file"])."</a>"."</td>";
             }
+            $post_date = new DateTime($row2["post_date"]);
+            $post_date = $post_date->format('d.m.Y H:i:s');
+            echo "<td>".$post_date."</td></tr>";
         }
         echo <<<html
         </tbody>
         </table>
         html;
+        $stmt2->close();
+        $conn->close();
+        echo "<div id='page-buttons'>";
+        if ($page > 1) {
+            echo "<a id='arrow-button' href='?id=".$_GET["id"]."&page=".$page-1 . "'>&laquo;</a>";
+        }
+        for ($i = 1; $i <= $total_pages; $i++) {
+            echo $i === $page ? "<a id='cur-page-button' href='?id=".$_GET["id"]."&page=".$i . "'>$i</a>" : "<a href='?id=".$_GET["id"]."&page=".$i . "'>$i</a>";
+        }
+        if ($page < $total_pages) {
+            echo "<a id='arrow-button' href='?id=".$_GET["id"]."&page=".$page+1 . "'>&raquo;</a>";
+        } 
+        echo "</div>";
     }
     else {
-        echo "<span>User has no posts yet</span>";
+        echo "<div class='message'>Nothing posted yet</div>";
     }
-    $stmt->close();
-    $conn->close();
     ?>
     </div>
     <?php
