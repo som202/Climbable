@@ -1,0 +1,98 @@
+body {
+    margin: 0px;
+    background-color: rgb(236, 215, 255);
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+}
+body header {
+    display:flex;
+    border-bottom: 2px solid black;
+    background-color: slateblue;
+}
+header a {
+    color: ghostwhite;
+    text-decoration: none;
+    padding: 10px;
+    margin-left: auto;
+}
+header a:hover {
+    background-color: darkslateblue;
+}
+#settings {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#profile-settings {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 2px solid black;
+    padding-bottom: 30px;
+}
+#profile-info {
+    margin-left: 10px;
+    text-align: left;
+}
+#profile-info label {
+    font-weight: bold;
+}
+#username-edit, #name-edit, #about-edit {
+    display: none;
+}
+#profile-info form input, #profile-info form textarea, #password-edit input {
+    border: 1px solid black;
+    border-radius: 4px;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+}
+#profile-info form input:focus, #profile-info form textarea:focus, #password-edit input:focus {
+    outline: none;
+    background-color: rgb(224, 212, 234);
+}
+#profile-pic {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    flex-shrink: 0;
+}
+#profile-data {
+    margin-top: 30px;
+    text-align: center;
+}
+#profile-data input {
+    margin-bottom: 8px;
+}
+#profile-data form {
+    display: none;
+}
+.edit-button, .save-button, .cancel-button, #password-edit-button {
+    border: 1px solid black;
+    border-radius: 5px;
+    color: ghostwhite;
+    background-color: slateblue;
+    font: inherit;
+    margin-left: 7px;
+    cursor: pointer;
+}
+#password-edit-button {
+    padding: 5px;
+}
+#password-edit .field .required {
+    position: absolute;
+    color: red;
+}
+#form-error span, .error span, #pw-error span {
+    color: red;
+}
+.action-button:hover, .save-button:hover, .cancel-button:hover {
+    background-color: darkslateblue;
+}
+@media print {
+    header, .button {
+        display: none;
+    }
+}

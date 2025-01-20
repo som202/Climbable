@@ -100,16 +100,6 @@ tbody tr:nth-child(even) {
     right: 10px;
     padding: 2px 7px 4px;
     font-size: 1em;
-    color: white;
-    border: 1px solid black;
-    border-radius: 50%;
-    background-color: slateblue;
-}
-#btn-close {
-    position: absolute;
-    right: 10px;
-    padding: 2px 7px 4px;
-    font-size: 1em;
     color: ghostwhite;
     border: 1px solid black;
     border-radius: 50%;
@@ -127,15 +117,11 @@ tbody tr:nth-child(even) {
 #post-form .field input[type="file"] {
     border: none;
 }
-#post-form .field input:focus {
-    outline: none;
-    background-color: rgb(224, 212, 234);
-}
 #post-form .field textarea {
     border: 2px solid black;
     border-radius: 5px;
 }
-#post-form .field textarea:focus {
+#post-form .field input:focus, #post-form .field textarea:focus {
     outline: none;
     background-color: rgb(224, 212, 234);
 }

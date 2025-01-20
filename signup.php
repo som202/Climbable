@@ -14,7 +14,7 @@ if (isset($_SESSION["user_id"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/signup.css">
-    <script src="js/signup.js" defer></script>
+    <script src="js/check_pw_match.js" defer></script>
     <script src="js/mark_fields.js" defer></script>
     <title>Sign up</title>
 </head>
@@ -38,7 +38,7 @@ if (isset($_SESSION["user_id"])) {
             </div>
             <div class="field">
                 <label for="username">Username</label><span class="required">*</span><br>
-                <input type="text" id="username" name="username" placeholder="Create a username" autocomplete="off" minlength="3" maxlength="35" pattern="[A-Za-z0-9]+" title="Username can only contain letters and numbers" value="<?php echo isset($_SESSION["entered_username"]) ? htmlspecialchars($_SESSION["entered_username"]) : ''; unset($_SESSION["entered_username"]); ?>">
+                <input type="text" id="username" name="username" placeholder="Create a username" autocomplete="off" minlength="3" maxlength="35" required pattern="[A-Za-z0-9]+" title="Username can only contain letters and numbers" value="<?php echo isset($_SESSION["entered_username"]) ? htmlspecialchars($_SESSION["entered_username"]) : ''; unset($_SESSION["entered_username"]); ?>">
             </div>
             <div class="field">
                 <label for="password">Password</label><span class="required">*</span><br>

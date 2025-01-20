@@ -10,7 +10,8 @@ function checkPasswordMatch() {
     return false;
 }
 
-document.querySelector("#signup-form").addEventListener("submit", (e) => {
+let form = document.querySelector("#signup-form") || document.querySelector("#password-edit");
+form.addEventListener("submit", (e) => {
     if (!checkPasswordMatch()) {
         e.preventDefault();
     }

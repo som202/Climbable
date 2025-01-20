@@ -11,14 +11,14 @@ else {
 }
 
 require('uid_get_data.php');
-// page will die if the user with specified user_id doesn't exist
+// page will die if the user with specified id doesn't exist
 $profile_username = uid_get_data($_GET["id"],"username");
 $name = uid_get_data($_GET["id"],"name");
-if (is_null($name)) {
+if (is_null($name) || $name === "") {
     $name = "-";
 }
 $about = uid_get_data($_GET["id"],"about");
-if (is_null($about)) {
+if (is_null($about) || $about === "") {
     $about = "-";
 }
 ?>
