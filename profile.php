@@ -25,6 +25,12 @@ $picture = uid_get_data($_GET["id"],"picture_file");
 if (is_null($picture) || $picture === "") {
     $picture = "pfp/user_default.png";
 }
+$visibility = uid_get_data($_GET["id"],"is_public");
+if ($visibility === 0) {
+    if (!isset($_SESSION["user_id"])) {
+        die("This profile is private, only logged in users can view it");
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
