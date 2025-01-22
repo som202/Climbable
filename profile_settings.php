@@ -20,6 +20,10 @@ $about = uid_get_data($_SESSION["user_id"],"about");
 if (is_null($about) || $about === "") {
     $about = "-";
 }
+$picture = uid_get_data($_SESSION["user_id"],"picture_file");
+if (is_null($picture) || $picture === "") {
+    $picture = "pfp/user_default.png";
+}
 $visibility = uid_get_data($_SESSION["user_id"],"is_public");
 ?>
 <!DOCTYPE html>
@@ -42,8 +46,18 @@ $visibility = uid_get_data($_SESSION["user_id"],"is_public");
     </header>
     <div id="settings">
         <div id="profile-settings">
-            <div id="profile-pic">
-                <img src="icons/user.png" alt="profile picture">
+            <div id="pic-container">
+                <div id="profile-pic">
+                    <img src="<?php echo htmlspecialchars($picture, ENT_QUOTES); ?>" alt="profile picture">
+                </div>
+                <button type="button" id="pic-edit-button">Upload new profile pic</button>
+                <form id="picture-edit" action="profile_update.php" method="post" enctype="multipart/form-data">
+                    <div id="picture-error"></div>
+                    <label for="image">Upload an image:</label><br>
+                    <input type="file" id="image" name="image" accept="image/*" required><br>
+                    <button type="submit" class="save-button">save</button>
+                    <button type="button" id="picture-edit-cancel" class="cancel-button">cancel</button>
+                </form>                    
             </div>
             <div id="profile-info">
                 <label for="username">Username</label><br>
@@ -96,7 +110,7 @@ $visibility = uid_get_data($_SESSION["user_id"],"is_public");
             ?>
             <button type="button" id="password-edit-button">Change password</button><br>
             <form id="password-edit" action="profile_update.php" method="post">
-                <div id="form-error">
+                <div id="password-error">
                 </div>
                 <div class="field">
                     <label for="cur-password">Current password:</label><span class="required">*</span><br>

@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($_FILES["video"]["error"] !== 0) {
                 die("There was en error uploading your file. Error code: ".$_FILES["video"]["error"]);
             }
-            $target_dir = "uploads/";
             $video_file_type = strtolower(pathinfo($_FILES["video"]["name"], PATHINFO_EXTENSION));
             if (!in_array($video_file_type, ['mp4', 'avi', 'mov', 'mkv', 'flv', 'wmv'])) {
                 die("This video format is not supported. List of supported formats: mp4,avi,mov,mkv,flv,wmv");
@@ -33,10 +32,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($_FILES["video"]["size"] > 20971520) {
                 die("Videos of size larger than 20MB aren't accepted");
             }
+            
+            $target_dir = "uploads/";
             //generate a unique filename for the video
             $new_file_id = uniqid();
             while (file_exists($target_dir.$new_file_id.".".$video_file_type)) {
-                $new_file_name = uniqid();
+                $new_file_id = uniqid();
             }
             $target_file = $target_dir.$new_file_id.".".$video_file_type;
             if(!move_uploaded_file($_FILES["video"]["tmp_name"], $target_file)) {

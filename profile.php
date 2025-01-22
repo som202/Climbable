@@ -21,6 +21,10 @@ $about = uid_get_data($_GET["id"],"about");
 if (is_null($about) || $about === "") {
     $about = "-";
 }
+$picture = uid_get_data($_GET["id"],"picture_file");
+if (is_null($picture) || $picture === "") {
+    $picture = "pfp/user_default.png";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +65,7 @@ if (is_null($about) || $about === "") {
     </header>
     <div id="profile">
         <div id="profile-pic">
-            <img src="icons/user.png" alt="profile picture">
+            <img src="<?php echo htmlspecialchars($picture, ENT_QUOTES); ?>" alt="profile picture">
         </div>
         <div id="profile-description">
             <strong>Username</strong><br><span><?php echo htmlspecialchars($profile_username);?></span><br>

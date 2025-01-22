@@ -3,11 +3,11 @@ require('db_connect.php');
 //$data parameter is column in users table in db
 function uid_get_data($uid,$data) {
     if ($data !== "username" && $data !== "name" && $data !== "about" &&
-        $data !== "is_public" && data !== "is_admin" && $data !== "picture_file") {
+        $data !== "is_public" && $data !== "is_admin" && $data !== "picture_file") {
         die("Specified data column doesn't exist in db");
     }
-
     global $conn;
+    
     $stmt = $conn->prepare("SELECT $data FROM users WHERE id = ?");
     $stmt->bind_param("i", $uid);
     $stmt->execute();

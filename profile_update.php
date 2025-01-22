@@ -120,6 +120,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["user_id"])) {
             die("Visibility data doesn't match the requested format");
         }
     }
+    else if (isset($_FILES["image"])) {
+
+        if ($_FILES["image"]["error"] !== 0) {
+            die("There was en error uploading your image. Error code: ".$_FILES["image"]["error"]);
+        }
+        $image_file_type = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
+        if (!in_array($image_file_type, ['jpg', 'jpeg', 'png'])) {
+            die("This video format is not supported. List of supported formats: mp4,avi,mov,mkv,flv,wmv");
+        }
+        if ($_FILES['image']['size'] > 10485760) {
+            die("Image file size is more than 10MB limit.");
+        }
+
+        $new_file_id = uniqid();
+        while (file_exists($target_dir.$new_file_id.".".$image_file_type)) {
+            $new_file_id = uniqid();
+        }
+        $new_image_name = $new_file_id .".".$image_file_type;
+
+        require('profile_image_process.php');
+        
+        $target_dir = "profilepics/";
+        $destination = $target_dir . $new_image_name;
+        compressImage($_FILES["image"]["tmp_name"], 256, 256, $destination);
+        insert_image($destination, $_SESSION["user_id"]);
+        header("Location: profile_settings.php");
+        exit();
+    }
     else {
         die("Missing post parameters");
     }

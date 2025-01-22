@@ -44,3 +44,27 @@ visibilityEditCancelButton.addEventListener("click", () => {
     visibilityEditForm.style.display = "none";
     visibilityEditButton.style.display = "inline-block";
 });
+
+let pictureEditButton = document.querySelector("#pic-edit-button");
+let pictureEditCancelButton = document.querySelector("#picture-edit-cancel");
+let pictureEditForm = document.querySelector("#picture-edit");
+
+pictureEditButton.addEventListener("click", (e) => {
+    e.target.style.display = "none";
+    pictureEditForm.style.display = "block";
+});
+pictureEditCancelButton.addEventListener("click", () => {
+    pictureEditForm.style.display = "none";
+    pictureEditButton.style.display = "inline-block";
+});
+
+let errDiv = document.querySelector("#picture-error");
+document.querySelector("#picture-edit").addEventListener("submit", (e) => {
+    let fileInput = document.querySelector("#image");
+    const maxSize = 10485760; //10 MB
+    
+    if (fileInput.files[0].size > maxSize) {
+      errDiv.innerHTML = "<span>File is too large. Maximum allowed size is 20 MB</span>";
+      e.preventDefault();
+    }
+});
