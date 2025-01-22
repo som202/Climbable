@@ -33,7 +33,7 @@ session_start();
     <div id="content">
         <div> 
             <h1>What is it?</h1>
-            <p>Climbable is an app designed for climbers to share progress with each other.</p>
+            <p>Climbable is an app designed for climbers to share their progress with each other.</p>
         </div>
         <div>
             <h1> How does this work?</h1>

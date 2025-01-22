@@ -86,11 +86,7 @@ if (is_null($about) || $about === "") {
     //get the total number of pages
     $stmt = $conn->prepare("SELECT COUNT(*) AS total_posts FROM posts WHERE user_id = ?");
     $stmt->bind_param("i", $_GET["id"]);
-    if (!$stmt->execute()) { 
-        $stmt->close();
-        $conn->close();
-        die("Database error: ".$stmt->error);
-    }
+    $stmt->execute();
     $res = $stmt->get_result();
     $row = $res->fetch_assoc();
     $total_posts = $row["total_posts"];
@@ -104,11 +100,7 @@ if (is_null($about) || $about === "") {
         $offset = ($page-1)*10;
         $stmt2 = $conn->prepare("SELECT grade, name, location, description, video_file, post_date FROM posts WHERE user_id = ? ORDER BY id DESC LIMIT 10 OFFSET ?");
         $stmt2->bind_param("ii", $_GET["id"], $offset);
-        if (!$stmt2->execute()) {
-            $stmt2->close();
-            $conn->close();
-            die("Database error: ".$stmt2->error);
-        }
+        $stmt2->execute();
         $res2 = $stmt2->get_result();
         echo <<<html
         <table>

@@ -1,5 +1,5 @@
-let editButtons = document.querySelectorAll(".edit-button");
-let cancelButtons = document.querySelectorAll(".cancel-button");
+let editButtons = document.querySelectorAll("#profile-info .edit-button");
+let cancelButtons = document.querySelectorAll("#profile-info .cancel-button");
 
 editButtons.forEach(button => {
     button.addEventListener("click", (e) => {
@@ -27,7 +27,20 @@ pwEditButton.addEventListener("click", (e) => {
     e.target.style.display = "none";
     pwEditForm.style.display = "block";
 });
-pwEditCancelButton.addEventListener("click", (e) => {
+pwEditCancelButton.addEventListener("click", () => {
     pwEditForm.style.display = "none";
     pwEditButton.style.display = "inline-block";
+});
+
+let visibilityEditButton = document.querySelector("#visibility-edit-button");
+let visibilityEditCancelButton = document.querySelector("#visibility-edit-cancel");
+let visibilityEditForm = document.querySelector("#visibility-edit");
+
+visibilityEditButton.addEventListener("click", (e) => {
+    e.target.style.display = "none";
+    visibilityEditForm.style.display = "block";
+});
+visibilityEditCancelButton.addEventListener("click", () => {
+    visibilityEditForm.style.display = "none";
+    visibilityEditButton.style.display = "inline-block";
 });

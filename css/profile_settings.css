@@ -18,7 +18,7 @@ header a:hover {
     background-color: darkslateblue;
 }
 #settings {
-    padding: 10px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,7 +60,7 @@ header a:hover {
     flex-shrink: 0;
 }
 #profile-data {
-    margin-top: 30px;
+    margin-top: 20px;
     text-align: center;
 }
 #profile-data input {
@@ -69,7 +69,7 @@ header a:hover {
 #profile-data form {
     display: none;
 }
-.edit-button, .save-button, .cancel-button, #password-edit-button {
+.edit-button, .save-button, .cancel-button, #password-edit-button, #visibility-edit-button {
     border: 1px solid black;
     border-radius: 5px;
     color: ghostwhite;
@@ -78,8 +78,9 @@ header a:hover {
     margin-left: 7px;
     cursor: pointer;
 }
-#password-edit-button {
+#password-edit-button, #visibility-edit-button {
     padding: 5px;
+    margin: 10px;
 }
 #password-edit .field .required {
     position: absolute;

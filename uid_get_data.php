@@ -10,12 +10,7 @@ function uid_get_data($uid,$data) {
     global $conn;
     $stmt = $conn->prepare("SELECT $data FROM users WHERE id = ?");
     $stmt->bind_param("i", $uid);
-    if (!$stmt->execute()) {
-        $stmt->close();
-        $conn->close();
-        die("Database error: ".$stmt->error);
-    }
-    
+    $stmt->execute();
     $res = $stmt->get_result();
     if ($res->num_rows === 1) {
         $row = $res->fetch_assoc();

@@ -12,9 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $exp = "%$input%";
         $stmt->bind_param("s", $exp);
-        if (!$stmt->execute()) {
-            die("Database error: ".$stmt->error);
-        }
+        $stmt->execute();
         $res = $stmt->get_result();
         $found_users = array();
         while($row = $res->fetch_assoc()) {

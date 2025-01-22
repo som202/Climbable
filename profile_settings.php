@@ -20,6 +20,7 @@ $about = uid_get_data($_SESSION["user_id"],"about");
 if (is_null($about) || $about === "") {
     $about = "-";
 }
+$visibility = uid_get_data($_SESSION["user_id"],"is_public");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +50,6 @@ if (is_null($about) || $about === "") {
                 <span id="username-display"><?php echo htmlspecialchars($profile_username);?></span>
                 <button type="button" id="username-edit-button" class="edit-button" data-field="username">edit</button>
                 <form id="username-edit" action="profile_update.php" method="POST">
-                    <!-- <input type="hidden" name="field" value="username"> -->
                     <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($profile_username); ?>" required minlength="3" maxlength="35" pattern="[A-Za-z0-9]+" title="Username can only contain letters and numbers" autocomplete="off">
                     <button type="submit" class="save-button">save</button>
                     <button type="button" class="cancel-button" data-field="username">cancel</button>
@@ -60,12 +60,10 @@ if (is_null($about) || $about === "") {
                     unset($_SESSION["user_exists"]);
                 }
                 ?>
-
                 <label for="name">Name</label><br>
                 <span id="name-display"><?php echo htmlspecialchars($name); ?></span>
                 <button type="button" id="name-edit-button" class="edit-button" data-field="name">edit</button>
-                <form id="name-edit" action="profile_update.php" method="post">
-                    <!-- <input type="hidden" name="field" value="name"> -->
+                <form id="name-edit" action="profile_update.php" method="POST">
                     <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" maxlength="128">
                     <button type="submit" class="save-button">save</button>
                     <button type="button" class="cancel-button" data-field="name">cancel</button>
@@ -75,7 +73,6 @@ if (is_null($about) || $about === "") {
                 <span id="about-display"><?php echo htmlspecialchars($about); ?></span>
                 <button type="button" id="about-edit-button" class="edit-button" data-field="about">edit</button>
                 <form id="about-edit" action="profile_update.php" method="post">
-                    <!-- <input type="hidden" name="field" value="about"> -->
                     <textarea name="about" id="about" maxlength="256"><?php echo htmlspecialchars($about); ?></textarea>
                     <button type="submit" class="save-button">save</button>
                     <button type="button" class="cancel-button" data-field="about">cancel</button>
@@ -92,8 +89,12 @@ if (is_null($about) || $about === "") {
                 echo "<div id='pw-error'><span>".$_SESSION["wrong_password"]."</span></div>";
                 unset($_SESSION["wrong_password"]);
             }
+            else if (isset($_SESSION["visibility_changed"])) {
+                echo "<div><span>".$_SESSION["visibility_changed"]."</span></div>";
+                unset($_SESSION["visibility_changed"]);
+            }
             ?>
-            <button type="button" id="password-edit-button">Change password</button>
+            <button type="button" id="password-edit-button">Change password</button><br>
             <form id="password-edit" action="profile_update.php" method="post">
                 <div id="form-error">
                 </div>
@@ -111,6 +112,17 @@ if (is_null($about) || $about === "") {
                 </div>   
                 <button type="submit" class="save-button">save</button>
                 <button type="button" id="password-edit-cancel" class="cancel-button">cancel</button>
+            </form>
+            <button type="button" id="visibility-edit-button">Change profile visibility</button>
+            <form id="visibility-edit" action="profile_update.php" method="post">
+                <div id="form-msg">
+                </div>
+                <input type="radio" id="public" name="visibility" value="public" <?php echo $visibility === 1 ? "checked" : "" ?>>
+                <label for="public">Public</label><br>
+                <input type="radio" id="private" name="visibility" value="private" <?php echo $visibility === 0 ? "checked" : "" ?>>
+                <label for="private">Private</label><br>
+                <button type="submit" class="save-button">save</button>
+                <button type="button" id="visibility-edit-cancel" class="cancel-button">cancel</button>
             </form>
         </div>
     </div>

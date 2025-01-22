@@ -8,21 +8,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["user_id"])) {
             require('db_connect.php');
             $stmt = $conn->prepare("SELECT id, username FROM users WHERE username = ?");
             $stmt->bind_param("s",$username_to_set);
-            if(!$stmt->execute()) {
-                $stmt->close();
-                $conn->close();
-                die("Database error: ".$stmt->error);
-            }
+            $stmt->execute();
             $res = $stmt->get_result();
             if ($res->num_rows === 0) {
                 $stmt->close();
                 $stmt2 = $conn->prepare("UPDATE users SET username = ? WHERE id = ?");
                 $stmt2->bind_param("si", $username_to_set, $_SESSION["user_id"]);
-                if(!$stmt2->execute()) {
-                    $stmt2->close();
-                    $conn->close();
-                    die("Database error: ".$stmt2->error);
-                }
+                $stmt2->execute();
                 $stmt2->close();
                 $conn->close();
                 header("Location: profile_settings.php");
@@ -58,11 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["user_id"])) {
             require('db_connect.php');
             $stmt = $conn->prepare("UPDATE users SET $field = ? WHERE id = ?");
             $stmt->bind_param("si",$value,$_SESSION["user_id"]);
-            if(!$stmt->execute()) {
-                $stmt->close();
-                $conn->close();
-                die("Database error: ".$stmt->error);
-            }
+            $stmt->execute();
             $stmt->close();
             $conn->close();
             header("Location: profile_settings.php");
@@ -80,11 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["user_id"])) {
                 require('db_connect.php');
                 $stmt = $conn->prepare("SELECT hashed_value FROM passwords WHERE user_id = ?");
                 $stmt->bind_param("i",$_SESSION["user_id"]);
-                if(!$stmt->execute()) {
-                    $stmt->close();
-                    $conn->close();
-                    die("Database error: ".$stmt->error);
-                }
+                $stmt->execute();
                 $res = $stmt->get_result();
                 if ($res->num_rows === 1) {
                     $row = $res->fetch_assoc();
@@ -94,11 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["user_id"])) {
                         $new_pw_hash = password_hash($new_pw, PASSWORD_BCRYPT);
                         $stmt2 = $conn->prepare("UPDATE passwords SET hashed_value = ? WHERE user_id = ?");
                         $stmt2->bind_param("si",$new_pw_hash,$_SESSION["user_id"]);
-                        if(!$stmt2->execute()) {
-                            $stmt2->close();
-                            $conn->close();
-                            die("Database error: ".$stmt2->error);
-                        }
+                        $stmt2->execute();
                         $stmt2->close();
                         $conn->close();
                         $_SESSION["password_changed"] = "Password was changed successfully!";
@@ -120,6 +100,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["user_id"])) {
         }
         else {
             die("Password data doesn't match the requested format");
+        }
+    }
+    else if (isset($_POST["visibility"])) {
+        if ($_POST["visibility"] === "public" || $_POST["visibility"] === "private") {
+            $is_public = ($_POST["visibility"] === "public") ? 1 : 0;
+            require('db_connect.php');
+            $stmt = $conn->prepare("UPDATE users SET is_public = ? WHERE id = ?");
+            $stmt->bind_param("ii", $is_public, $_SESSION["user_id"]);
+            $stmt->execute();
+            $stmt->close();
+            $conn->close();
+            
+            $_SESSION["visibility_changed"] = "Visibility was changed successfully!";
+            header("Location: profile_settings.php");
+            exit();
+        }
+        else {
+            die("Visibility data doesn't match the requested format");
         }
     }
     else {

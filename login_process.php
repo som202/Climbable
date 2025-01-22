@@ -12,11 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         require('db_connect.php');
         $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
-        if(!$stmt->execute()) {
-            $stmt->close();
-            $conn->close();
-            die("Database error: ".$stmt->error);
-        }
+        $stmt->execute();
         $res = $stmt->get_result();
         if ($res->num_rows === 1) {
             $row = $res->fetch_assoc();
@@ -24,11 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt->close();
             $stmt2 = $conn->prepare("SELECT hashed_value FROM passwords WHERE user_id = ?");
             $stmt2->bind_param("s", $user_id);
-            if(!$stmt2->execute()) {
-                $stmt2->close();
-                $conn->close();
-                die("Database error: ".$stmt2->error);
-            }
+            $stmt2->execute();
             $res2 = $stmt2->get_result();
             if ($res2->num_rows === 1) {
                 $row2 = $res2->fetch_assoc();
