@@ -44,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 die("Your file couldn't be moved to according server directory");
             }
         }
+        if (!isset($target_file)) { $target_file = NULL; }
         insert_post_data($_SESSION["user_id"],$_POST["grade"],$_POST["name"],$_POST["location"],$_POST["description"],$target_file);
         header("Location: profile.php?id=".urlencode($_SESSION["user_id"]));
         exit();

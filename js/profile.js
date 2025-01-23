@@ -37,3 +37,4 @@ document.querySelector("#video").addEventListener("change", (e) => {
 document.querySelector("#action-buttons button:last-child").addEventListener("click", function() {
     window.location.href = "profile_settings.php";
 });
+

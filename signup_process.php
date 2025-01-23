@@ -1,14 +1,18 @@
 <?php
 session_start();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (!isset($_POST["username"]) || !isset($_POST["password"])) {
+    if (!isset($_POST["username"]) || !isset($_POST["password"]) || !isset($_POST["password-confirm"])) {
         die("Missing post parameters");
     }
     $username = $_POST["username"];
     $password = $_POST["password"];
+    $password_confirm = $_POST["password-confirm"];
     if (ctype_alnum($username) && strlen($username) >= 3 && strlen($username) <= 35 
         && preg_match("/^[A-Za-z0-9~!@#$%^&*]+$/",$password) && strlen($password) >= 8 && strlen($password) <= 64) {
-
+        
+        if ($password !== $password_confirm) {
+            die("Passwords didn't match");
+        }
         require('db_connect.php');
         $stmt = $conn->prepare("SELECT username FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);

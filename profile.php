@@ -79,7 +79,7 @@ if ($visibility === 0) {
             <strong>About</strong><br><span><?php echo htmlspecialchars($about);?></span>
         </div>
         <?php
-        if ($_SESSION["user_id"] == $_GET["id"]) {
+        if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] == $_GET["id"]) {
             echo <<<html
             <div id="action-buttons">
                 <button type="button" class="action-button">Post climb</button>
@@ -165,7 +165,7 @@ if ($visibility === 0) {
     ?>
     </div>
     <?php
-    if ($_SESSION["user_id"] == $_GET["id"]) {
+    if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] == $_GET["id"]) {
         echo <<<html
         <div id="overlay">
             <form id="post-form" method="post" enctype="multipart/form-data" action="post_process.php">

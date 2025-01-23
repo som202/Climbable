@@ -22,7 +22,7 @@ header #account {
     float: right;
 }
 #login-container {
-    padding-top: 80px;
+    padding-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,6 +75,10 @@ button:hover {
 #login-form .field .required {
     position: absolute;
     color: red;
+}
+.required-notice {
+    color: red;
+    font-size: 0.7em;
 }
 #form-error span {
     color: red;

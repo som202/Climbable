@@ -96,11 +96,14 @@ header a:hover {
     position: absolute;
     color: red;
 }
-#password-error span, .error span, #pw-error span {
+#form-error span, #pw-error span {
     color: red;
 }
 .action-button:hover, .save-button:hover, .cancel-button:hover {
     background-color: darkslateblue;
+}
+.small {
+    font-size: small;
 }
 @media print {
     header, .button {

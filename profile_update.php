@@ -60,11 +60,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["user_id"])) {
             die($field . " field doesn't match the requested format");
         }
     }
-    else if (isset($_POST["cur-password"]) && isset($_POST["password"])) {
+    else if (isset($_POST["cur-password"]) && isset($_POST["password"]) && isset($_POST["password-confirm"])) {
         $cur_pw = $_POST["cur-password"];
         $new_pw = $_POST["password"];
+        $new_pw_confirm = $_POST["password-confirm"];
         if (preg_match("/^[A-Za-z0-9~!@#$%^&*]+$/",$cur_pw) && strlen($cur_pw) >= 8 && strlen($cur_pw) <= 64 && 
             preg_match("/^[A-Za-z0-9~!@#$%^&*]+$/",$new_pw) && strlen($new_pw) >= 8 && strlen($new_pw) <= 64) {
+
+                if ($new_pw !== $new_pw_confirm) {
+                    die("Passwords didn't match!");
+                }
                 require('db_connect.php');
                 $stmt = $conn->prepare("SELECT hashed_value FROM passwords WHERE user_id = ?");
                 $stmt->bind_param("i",$_SESSION["user_id"]);

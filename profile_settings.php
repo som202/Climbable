@@ -55,6 +55,7 @@ $visibility = uid_get_data($_SESSION["user_id"],"is_public");
                     <div id="picture-error"></div>
                     <label for="image">Upload an image:</label><br>
                     <input type="file" id="image" name="image" accept="image/*" required><br>
+                    <span class="small">Image will be resized to 256x256 pixels</span><br>
                     <button type="submit" class="save-button">save</button>
                     <button type="button" id="picture-edit-cancel" class="cancel-button">cancel</button>
                 </form>                    
@@ -110,7 +111,7 @@ $visibility = uid_get_data($_SESSION["user_id"],"is_public");
             ?>
             <button type="button" id="password-edit-button">Change password</button><br>
             <form id="password-edit" action="profile_update.php" method="post">
-                <div id="password-error">
+                <div id="form-error">
                 </div>
                 <div class="field">
                     <label for="cur-password">Current password:</label><span class="required">*</span><br>
