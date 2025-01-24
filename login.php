@@ -14,7 +14,6 @@ if (isset($_SESSION["user_id"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
-    <script src="js/login.js" defer></script>
     <script src="js/mark_fields.js" defer></script>
     <title>Log in</title>
 </head>

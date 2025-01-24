@@ -45,7 +45,7 @@ visibilityEditCancelButton.addEventListener("click", () => {
     visibilityEditButton.style.display = "inline-block";
 });
 
-let pictureEditButton = document.querySelector("#pic-edit-button");
+let pictureEditButton = document.querySelector("#picture-edit-button");
 let pictureEditCancelButton = document.querySelector("#picture-edit-cancel");
 let pictureEditForm = document.querySelector("#picture-edit");
 
@@ -67,4 +67,17 @@ document.querySelector("#picture-edit").addEventListener("submit", (e) => {
       errDiv.innerHTML = "<span>File is too large. Maximum allowed size is 20 MB</span>";
       e.preventDefault();
     }
+});
+
+let deleteProfileButton = document.querySelector("#delete-profile-button");
+let deleteCancelButton = document.querySelector("#delete-cancel-button");
+let deleteForm = document.querySelector("#delete-profile");
+
+deleteProfileButton.addEventListener("click", (e) => {
+    e.target.style.display = "none";
+    deleteForm.style.display = "block";
+});
+deleteCancelButton.addEventListener("click", () => {
+    deleteForm.style.display = "none";
+    deleteProfileButton.style.display = "inline-block";
 });

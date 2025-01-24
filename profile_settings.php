@@ -50,7 +50,7 @@ $visibility = uid_get_data($_SESSION["user_id"],"is_public");
                 <div id="profile-pic">
                     <img src="<?php echo htmlspecialchars($picture, ENT_QUOTES); ?>" alt="profile picture">
                 </div>
-                <button type="button" id="pic-edit-button" class="action-button">Upload new profile pic</button>
+                <button type="button" id="picture-edit-button" class="action-button">Upload new profile pic</button>
                 <form id="picture-edit" action="profile_update.php" method="post" enctype="multipart/form-data">
                     <div id="picture-error"></div>
                     <label for="image">Upload an image:</label><br>
@@ -128,16 +128,25 @@ $visibility = uid_get_data($_SESSION["user_id"],"is_public");
                 <button type="submit" class="save-button">save</button>
                 <button type="button" id="password-edit-cancel" class="cancel-button">cancel</button>
             </form>
-            <button type="button" id="visibility-edit-button" class="action-button">Change profile visibility</button>
+            <button type="button" id="visibility-edit-button" class="action-button">Change profile visibility</button><br>
             <form id="visibility-edit" action="profile_update.php" method="post">
-                <div id="form-msg">
-                </div>
+                <span class="small">Private profile can only be viewed by registered users</span><br>
                 <input type="radio" id="public" name="visibility" value="public" <?php echo $visibility === 1 ? "checked" : "" ?>>
                 <label for="public">Public</label><br>
                 <input type="radio" id="private" name="visibility" value="private" <?php echo $visibility === 0 ? "checked" : "" ?>>
                 <label for="private">Private</label><br>
                 <button type="submit" class="save-button">save</button>
                 <button type="button" id="visibility-edit-cancel" class="cancel-button">cancel</button>
+            </form>
+            <button type="button" id="delete-profile-button" class="action-button">Delete profile</button>
+            <form id="delete-profile" action="profile_update.php" method="post">
+                <span>Type your password and press delete to delete your profile</span><br>
+                <div>
+                    <label for="password-confirm-delete">Password:</label><br>
+                    <input type="password" id="password-confirm-delete" name="password-confirm-delete" required autocomplete="off" minlength="8" maxlength="64" pattern="[A-Za-z0-9~!@#$%^&*]+" title="Password can only contain letters, numbers and following characters: ~!@#$%^&*">
+                </div>
+                <button type="submit" class="save-button">delete</button>
+                <button type="button" id="delete-cancel-button" class="cancel-button">cancel</button>
             </form>
         </div>
     </div>
