@@ -52,13 +52,11 @@ if (isset($_SESSION["user_id"])) {
             </div>
             <div class="field">
                 <label for="username">Username</label><span class="required">*</span><br>
-                <input type="text" id="username" name="username" placeholder="Username" autocomplete="off" required minlength="3" maxlength="35" pattern="[A-Za-z0-9]+" title="Username can only contain letters and numbers" value="<?php echo isset($_SESSION["entered_username"]) ? htmlspecialchars($_SESSION["entered_username"]) : ''; unset($_SESSION["entered_username"]);?>"><br>
-                <span class="required-notice">required</span>
+                <input type="text" id="username" name="username" placeholder="Username" autocomplete="off" required minlength="3" maxlength="35" pattern="[A-Za-z0-9]+" title="Username can only contain letters and numbers" value="<?php echo isset($_SESSION["entered_username"]) ? htmlspecialchars($_SESSION["entered_username"]) : ''; unset($_SESSION["entered_username"]);?>">
             </div>
             <div class="field" id="password-div">
                 <label for="password">Password</label><span class="required">*</span><br>
-                <input type="password" id="password" name="password" placeholder="Password" required minlength="8" maxlength="64" pattern="[A-Za-z0-9~!@#$%^&*]+" title="Password can only contain letters, numbers and following characters: ~!@#$%^&*"><br>
-                <span class="required-notice">required</span>
+                <input type="password" id="password" name="password" placeholder="Password" required minlength="8" maxlength="64" pattern="[A-Za-z0-9~!@#$%^&*]+" title="Password can only contain letters, numbers and following characters: ~!@#$%^&*">
             </div>
             <div id="button-div">
                 <button type="submit">Sign in</button>

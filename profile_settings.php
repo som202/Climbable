@@ -22,7 +22,7 @@ if (is_null($about) || $about === "") {
 }
 $picture = uid_get_data($_SESSION["user_id"],"picture_file");
 if (is_null($picture) || $picture === "") {
-    $picture = "pfp/user_default.png";
+    $picture = "profilepics/user_default.png";
 }
 $visibility = uid_get_data($_SESSION["user_id"],"is_public");
 ?>
@@ -50,7 +50,7 @@ $visibility = uid_get_data($_SESSION["user_id"],"is_public");
                 <div id="profile-pic">
                     <img src="<?php echo htmlspecialchars($picture, ENT_QUOTES); ?>" alt="profile picture">
                 </div>
-                <button type="button" id="pic-edit-button">Upload new profile pic</button>
+                <button type="button" id="pic-edit-button" class="action-button">Upload new profile pic</button>
                 <form id="picture-edit" action="profile_update.php" method="post" enctype="multipart/form-data">
                     <div id="picture-error"></div>
                     <label for="image">Upload an image:</label><br>
@@ -101,7 +101,7 @@ $visibility = uid_get_data($_SESSION["user_id"],"is_public");
                 unset($_SESSION["password_changed"]);
             }
             else if (isset($_SESSION["wrong_password"])) {
-                echo "<div id='pw-error'><span>".$_SESSION["wrong_password"]."</span></div>";
+                echo "<div class='pw-error'><span>".$_SESSION["wrong_password"]."</span></div>";
                 unset($_SESSION["wrong_password"]);
             }
             else if (isset($_SESSION["visibility_changed"])) {
@@ -109,9 +109,9 @@ $visibility = uid_get_data($_SESSION["user_id"],"is_public");
                 unset($_SESSION["visibility_changed"]);
             }
             ?>
-            <button type="button" id="password-edit-button">Change password</button><br>
+            <button type="button" id="password-edit-button" class="action-button">Change password</button><br>
             <form id="password-edit" action="profile_update.php" method="post">
-                <div id="form-error">
+                <div class="pw-error" id="pw-form-error">
                 </div>
                 <div class="field">
                     <label for="cur-password">Current password:</label><span class="required">*</span><br>
@@ -128,7 +128,7 @@ $visibility = uid_get_data($_SESSION["user_id"],"is_public");
                 <button type="submit" class="save-button">save</button>
                 <button type="button" id="password-edit-cancel" class="cancel-button">cancel</button>
             </form>
-            <button type="button" id="visibility-edit-button">Change profile visibility</button>
+            <button type="button" id="visibility-edit-button" class="action-button">Change profile visibility</button>
             <form id="visibility-edit" action="profile_update.php" method="post">
                 <div id="form-msg">
                 </div>

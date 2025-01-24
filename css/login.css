@@ -76,10 +76,6 @@ button:hover {
     position: absolute;
     color: red;
 }
-.required-notice {
-    color: red;
-    font-size: 0.7em;
-}
 #form-error span {
     color: red;
 }

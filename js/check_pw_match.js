@@ -1,7 +1,7 @@
 function checkPasswordMatch() {
     let pw1 = document.querySelector("#password").value;
     let pw2 = document.querySelector("#password-confirm").value;
-    let errDiv = document.querySelector("#form-error");
+    let errDiv = document.querySelector("#pw-form-error");
     if (pw1 === pw2) {
         errDiv.innerHTML = "";
         return true;

@@ -34,7 +34,7 @@ header #account {
     border-radius: 15px;
     padding: 30px;
 }
-#form-error span {
+#pw-form-error span {
     color: red;
 }
 .field {
@@ -71,8 +71,4 @@ button:hover {
 #signup-form .field .required {
     color: red;
     position: absolute;
-}
-.required-notice {
-    color: red;
-    font-size: 0.7em;
 }

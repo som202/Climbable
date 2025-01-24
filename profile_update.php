@@ -139,6 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["user_id"])) {
         }
 
         $new_file_id = uniqid();
+        $target_dir = "profilepics/";
         while (file_exists($target_dir.$new_file_id.".".$image_file_type)) {
             $new_file_id = uniqid();
         }
@@ -146,7 +147,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["user_id"])) {
 
         require('profile_image_process.php');
         
-        $target_dir = "profilepics/";
         $destination = $target_dir . $new_image_name;
         compressImage($_FILES["image"]["tmp_name"], 256, 256, $destination);
         insert_image($destination, $_SESSION["user_id"]);

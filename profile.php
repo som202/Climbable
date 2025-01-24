@@ -23,7 +23,7 @@ if (is_null($about) || $about === "") {
 }
 $picture = uid_get_data($_GET["id"],"picture_file");
 if (is_null($picture) || $picture === "") {
-    $picture = "pfp/user_default.png";
+    $picture = "profilepics/user_default.png";
 }
 $visibility = uid_get_data($_GET["id"],"is_public");
 if ($visibility === 0) {

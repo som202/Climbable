@@ -72,7 +72,7 @@ header a:hover {
 #profile-data form, #profile-settings form {
     display: none;
 }
-.edit-button, .save-button, .cancel-button, #password-edit-button, #visibility-edit-button, #pic-edit-button {
+.edit-button, .save-button, .cancel-button, .action-button {
     border: 1px solid black;
     border-radius: 5px;
     color: ghostwhite;
@@ -96,10 +96,10 @@ header a:hover {
     position: absolute;
     color: red;
 }
-#form-error span, #pw-error span {
+.pw-error span {
     color: red;
 }
-.action-button:hover, .save-button:hover, .cancel-button:hover {
+.action-button:hover,  .edit-button:hover, .save-button:hover, .cancel-button:hover {
     background-color: darkslateblue;
 }
 .small {
